@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  /* Cores principais */
+  --color-primary: #1976d2;
+  --color-primary-light: #42a5f5;
+  --color-primary-dark: #1565c0;
+  --color-primary-bg: rgba(25, 118, 210, 0.1);
+
+  --color-secondary: #43a047;
+  --color-secondary-light: #66bb6a;
+  --color-secondary-dark: #2e7d32;
+  --color-secondary-bg: rgba(67, 160, 71, 0.1);
+
+  --color-success: #43a047;
+  --color-success-light: #66bb6a;
+  --color-success-dark: #2e7d32;
+  --color-success-bg: rgba(67, 160, 71, 0.1);
+
+  --color-danger: #f44336;
+  --color-danger-light: #ef5350;
+  --color-danger-dark: #d32f2f;
+  --color-danger-bg: rgba(244, 67, 54, 0.1);
+
+  --color-accent: #ff9800;
+  --color-accent-light: #ffa726;
+  --color-accent-dark: #f57c00;
+  --color-accent-bg: rgba(255, 152, 0, 0.1);
+
+  /* Cores de texto */
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-text-tertiary: #6b7280;
+  --color-text-light: #9ca3af;
+
+  /* Cores de fundo */
+  --color-bg-primary: #6b7280;
+  --color-bg-secondary: #6b7280;
+  --color-bg-tertiary: #f3f4f6;
+
+  /* Cores de borda */
+  --color-border-primary: #e5e7eb;
+  --color-border-secondary: #d1d5db;
+
+  /* Cores de hover */
+  --color-hover-primary: #1565c0;
+  --color-hover-secondary: #2e7d32;
+  --color-hover-danger: #d32f2f;
+  --color-hover-accent: #f57c00;
+
+  /* Cores de status */
+  --color-pending: #757575;
+  --color-pending-light: #9e9e9e;
+  --color-pending-dark: #616161;
+  --color-pending-bg: rgba(117, 117, 117, 0.1);
+
+  /* Fontes */
+  --font-primary: Poppins, sans-serif;
+  --font-secondary: Inter, sans-serif;
+}
+
+/* Estilos globais */
+body {
+  background-color: #f8fafc !important;
+}
+
+/* Classes utilitárias */
+.bg-primary-gradient {
+  background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
+}
+
+.bg-secondary-gradient {
+  background: linear-gradient(to right, var(--color-secondary), var(--color-secondary-dark));
+}
+
+.bg-success-gradient {
+  background: linear-gradient(to right, var(--color-success), var(--color-success-dark));
+}
+
+.bg-danger-gradient {
+  background: linear-gradient(to right, var(--color-danger), var(--color-danger-dark));
+}
+
+.bg-accent-gradient {
+  background: linear-gradient(to right, var(--color-accent), var(--color-accent-dark));
+}
+
+/* Transições */
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+/* Sombras */
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
