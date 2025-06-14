@@ -70,7 +70,7 @@ export default function RegisterUser() {
     };
 
     try {
-      await axios.post(`${API_URL}/api/register/`, payload);
+      await axios.post(`${API_URL}/api/cadastro-usuario/`, payload);
       setOk(true);
       setMsg('Cadastro realizado com sucesso! Faça login.');
       setTimeout(() => navigate('/login'), 1500);
