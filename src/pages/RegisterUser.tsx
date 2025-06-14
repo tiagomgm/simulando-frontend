@@ -31,6 +31,7 @@ export default function RegisterUser() {
   const [msg, setMsg] = useState("");
   const [ok, setOk] = useState(false);
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type, value } = e.target;
@@ -69,7 +70,7 @@ export default function RegisterUser() {
     };
 
     try {
-      await axios.post('http://127.0.0.1:8000/api/register/', payload);
+      await axios.post(`${API_URL}/api/register/`, payload);
       setOk(true);
       setMsg('Cadastro realizado com sucesso! Faça login.');
       setTimeout(() => navigate('/login'), 1500);

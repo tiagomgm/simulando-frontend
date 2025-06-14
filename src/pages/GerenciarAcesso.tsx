@@ -28,22 +28,23 @@ export default function GerenciarAcessoAlunos() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<'success' | 'error'>('success');
   const [alteracoes, setAlteracoes] = useState<{alunos: number[], tipo: 'liberar' | 'revogar'}[]>([]);
-
+  const API_URL = import.meta.env.VITE_API_URL;
+  
   useEffect(() => {
     async function loadData() {
       setLoading(true);
       try {
         const [ava, allAlunos, alunosAcessoResp, alunosResponderamResp] = await Promise.all([
-          axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/`, {
+          axios.get(`${API_URL}/api/avaliacoes/${id}/`, {
             headers: { Authorization: `Bearer ${getToken()}` }
           }),
-          axios.get(`http://127.0.0.1:8000/api/usuarios/?perfil=aluno`, {
+          axios.get(`${API_URL}/api/usuarios/?perfil=aluno`, {
             headers: { Authorization: `Bearer ${getToken()}` }
           }),
-          axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/alunos-com-acesso/`, {
+          axios.get(`${API_URL}/api/avaliacoes/${id}/alunos-com-acesso/`, {
             headers: { Authorization: `Bearer ${getToken()}` }
           }),
-          axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/alunos-que-responderam/`, {
+          axios.get(`${API_URL}/api/avaliacoes/${id}/alunos-que-responderam/`, {
             headers: { Authorization: `Bearer ${getToken()}` }
           }),
         ]);
@@ -134,7 +135,7 @@ export default function GerenciarAcessoAlunos() {
 
       // Aplica as alterações
       if (liberarIds.length > 0) {
-        await axios.post(`http://127.0.0.1:8000/api/avaliacoes/${id}/liberar-acesso/`, {
+        await axios.post(`${API_URL}/api/avaliacoes/${id}/liberar-acesso/`, {
           alunos: liberarIds
         }, {
           headers: { Authorization: `Bearer ${getToken()}` }
@@ -142,7 +143,7 @@ export default function GerenciarAcessoAlunos() {
       }
 
       if (revogarIds.length > 0) {
-        await axios.post(`http://127.0.0.1:8000/api/avaliacoes/${id}/revogar-acesso/`, {
+        await axios.post(`${API_URL}/api/avaliacoes/${id}/revogar-acesso/`, {
           alunos: revogarIds
         }, {
           headers: { Authorization: `Bearer ${getToken()}` }
@@ -156,16 +157,16 @@ export default function GerenciarAcessoAlunos() {
 
       // Atualiza os dados
       const [ava, allAlunos, alunosAcessoResp, alunosResponderamResp] = await Promise.all([
-        axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/`, {
+        axios.get(`${API_URL}/api/avaliacoes/${id}/`, {
           headers: { Authorization: `Bearer ${getToken()}` }
         }),
-        axios.get(`http://127.0.0.1:8000/api/usuarios/?perfil=aluno`, {
+        axios.get(`${API_URL}/api/usuarios/?perfil=aluno`, {
           headers: { Authorization: `Bearer ${getToken()}` }
         }),
-        axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/alunos-com-acesso/`, {
+        axios.get(`${API_URL}/api/avaliacoes/${id}/alunos-com-acesso/`, {
           headers: { Authorization: `Bearer ${getToken()}` }
         }),
-        axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/alunos-que-responderam/`, {
+        axios.get(`${API_URL}/api/avaliacoes/${id}/alunos-que-responderam/`, {
           headers: { Authorization: `Bearer ${getToken()}` }
         }),
       ]);

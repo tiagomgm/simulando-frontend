@@ -39,6 +39,7 @@ export default function DashboardAluno() {
   const [filtro, setFiltro] = useState('Todas');
   const [loadingId, setLoadingId] = useState<number | null>(null);
   const [posicaoRanking, setPosicaoRanking] = useState<number | null>(null);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const meuId = getMeuId();
   const navigate = useNavigate();
@@ -49,13 +50,13 @@ export default function DashboardAluno() {
       try {
         console.log("Carregando dados do dashboard...");
         const [avs, resps, ranking] = await Promise.all([
-          axios.get('http://127.0.0.1:8000/api/avaliacoes/', {
+          axios.get('${API_URL}/api/avaliacoes/', {
             headers: { Authorization: `Bearer ${getToken()}` }
           }),
-          axios.get(`http://127.0.0.1:8000/api/respostas/?aluno=${meuId}`, {
+          axios.get(`${API_URL}/api/respostas/?aluno=${meuId}`, {
             headers: { Authorization: `Bearer ${getToken()}` }
           }),
-          axios.get('http://127.0.0.1:8000/api/ranking-geral/', {
+          axios.get('${API_URL}/api/ranking-geral/', {
             headers: { Authorization: `Bearer ${getToken()}` }
           })
         ]);

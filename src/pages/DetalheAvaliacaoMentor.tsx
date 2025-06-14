@@ -19,6 +19,7 @@ export default function DetalheAvaliacaoMentor() {
   const [selectedQuestao, setSelectedQuestao] = useState<any>(null);
   const [modal, setModal] = useState(false);
   const [novaResposta, setNovaResposta] = useState('');
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     async function load() {
@@ -27,25 +28,25 @@ export default function DetalheAvaliacaoMentor() {
         const [
           ava, qs, rk, est, alunosAcessoResp, alunosResponderamResp, estGeral
         ] = await Promise.all([
-          axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/`, {
+          axios.get(`${API_URL}/api/avaliacoes/${id}/`, {
             headers: { Authorization: `Bearer ${getToken()}` },
           }),
-          axios.get(`http://127.0.0.1:8000/api/questoes/?avaliacao=${id}`, {
+          axios.get(`${API_URL}/api/questoes/?avaliacao=${id}`, {
             headers: { Authorization: `Bearer ${getToken()}` },
           }),
-          axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/ranking/`, {
+          axios.get(`${API_URL}/api/avaliacoes/${id}/ranking/`, {
             headers: { Authorization: `Bearer ${getToken()}` },
           }),
-          axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/estatisticas/`, {
+          axios.get(`${API_URL}/api/avaliacoes/${id}/estatisticas/`, {
             headers: { Authorization: `Bearer ${getToken()}` },
           }),
-          axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/alunos-com-acesso/`, {
+          axios.get(`${API_URL}/api/avaliacoes/${id}/alunos-com-acesso/`, {
             headers: { Authorization: `Bearer ${getToken()}` },
           }),
-          axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/alunos-que-responderam/`, {
+          axios.get(`${API_URL}/api/avaliacoes/${id}/alunos-que-responderam/`, {
             headers: { Authorization: `Bearer ${getToken()}` },
           }),
-          axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/estatisticas-avaliacao/`, {
+          axios.get(`${API_URL}/api/avaliacoes/${id}/estatisticas-avaliacao/`, {
             headers: { Authorization: `Bearer ${getToken()}` },
           }),
         ]);
@@ -80,12 +81,12 @@ export default function DetalheAvaliacaoMentor() {
     if (!selectedQuestao || !novaResposta) return;
     try {
       await axios.patch(
-        `http://127.0.0.1:8000/api/questoes/${selectedQuestao.id}/`,
+        `${API_URL}/api/questoes/${selectedQuestao.id}/`,
         { resposta: novaResposta },
         { headers: { Authorization: `Bearer ${getToken()}` } }
       );
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/questoes/?avaliacao=${id}`,
+        `${API_URL}/api/questoes/?avaliacao=${id}`,
         { headers: { Authorization: `Bearer ${getToken()}` } }
       );
       setQuestoes(response.data);
@@ -100,7 +101,7 @@ export default function DetalheAvaliacaoMentor() {
     if (!selectedQuestao) return;
     if (window.confirm('Excluir esta questão?')) {
       await axios.delete(
-        `http://127.0.0.1:8000/api/questoes/${selectedQuestao.id}/`,
+        `${API_URL}/api/questoes/${selectedQuestao.id}/`,
         { headers: { Authorization: `Bearer ${getToken()}` } }
       );
       setQuestoes(questoes.filter(q => q.id !== selectedQuestao.id));
@@ -112,22 +113,22 @@ export default function DetalheAvaliacaoMentor() {
   const handleAnularQuestao = async (qid: number, anulada: boolean) => {
     try {
       await axios.post(
-        `http://127.0.0.1:8000/api/questoes/${qid}/${anulada ? 'desanular' : 'anular'}/`,
+        `${API_URL}/api/questoes/${qid}/${anulada ? 'desanular' : 'anular'}/`,
         {},
         { headers: { Authorization: `Bearer ${getToken()}` } }
       );
       await axios.post(
-        `http://127.0.0.1:8000/api/avaliacoes/${id}/recalcular-pontuacoes/`,
+        `${API_URL}/api/avaliacoes/${id}/recalcular-pontuacoes/`,
         {},
         { headers: { Authorization: `Bearer ${getToken()}` } }
       );
       const [qs, est, rk, estGeral, alunosAcessoResp, alunosResponderamResp] = await Promise.all([
-        axios.get(`http://127.0.0.1:8000/api/questoes/?avaliacao=${id}`, { headers: { Authorization: `Bearer ${getToken()}` } }),
-        axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/estatisticas/`, { headers: { Authorization: `Bearer ${getToken()}` } }),
-        axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/ranking/`, { headers: { Authorization: `Bearer ${getToken()}` } }),
-        axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/estatisticas-avaliacao/`, { headers: { Authorization: `Bearer ${getToken()}` } }),
-        axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/alunos-com-acesso/`, { headers: { Authorization: `Bearer ${getToken()}` } }),
-        axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/alunos-que-responderam/`, { headers: { Authorization: `Bearer ${getToken()}` } })
+        axios.get(`${API_URL}/api/questoes/?avaliacao=${id}`, { headers: { Authorization: `Bearer ${getToken()}` } }),
+        axios.get(`${API_URL}/api/avaliacoes/${id}/estatisticas/`, { headers: { Authorization: `Bearer ${getToken()}` } }),
+        axios.get(`${API_URL}/api/avaliacoes/${id}/ranking/`, { headers: { Authorization: `Bearer ${getToken()}` } }),
+        axios.get(`${API_URL}/api/avaliacoes/${id}/estatisticas-avaliacao/`, { headers: { Authorization: `Bearer ${getToken()}` } }),
+        axios.get(`${API_URL}/api/avaliacoes/${id}/alunos-com-acesso/`, { headers: { Authorization: `Bearer ${getToken()}` } }),
+        axios.get(`${API_URL}/api/avaliacoes/${id}/alunos-que-responderam/`, { headers: { Authorization: `Bearer ${getToken()}` } })
       ]);
       setQuestoes(qs.data);
       setEstatisticas(est.data);
@@ -150,7 +151,7 @@ export default function DetalheAvaliacaoMentor() {
 
   const excluirAvaliacao = async () => {
     if (window.confirm("Excluir esta avaliação? Todas as questões e respostas serão removidas.")) {
-      await axios.delete(`http://127.0.0.1:8000/api/avaliacoes/${id}/`, {
+      await axios.delete(`${API_URL}/api/avaliacoes/${id}/`, {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       navigate("/mentor/dashboard");

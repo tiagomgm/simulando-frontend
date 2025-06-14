@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getToken } from "../utils/token";
-const API_URL = "http://127.0.0.1:8000/api";
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Lista todas as avaliações disponíveis para o usuário logado
 export async function listarAvaliacoes() {

@@ -19,6 +19,7 @@ export default function RankingGeral() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showAll, setShowAll] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchRanking = async () => {
@@ -29,7 +30,7 @@ export default function RankingGeral() {
           setLoading(false);
           return;
         }
-        const response = await axios.get(`http://127.0.0.1:8000/api/ranking-geral/`, {
+        const response = await axios.get(`${API_URL}/api/ranking-geral/`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (response.data && Array.isArray(response.data)) {

@@ -27,6 +27,7 @@ export default function RankingAluno() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showAll, setShowAll] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // ID do usuário atual (UUID)
   const [meuUuid, setMeuUuid] = useState<string | null>(null);
@@ -52,8 +53,8 @@ export default function RankingAluno() {
         }
         const headers = { Authorization: `Bearer ${token}` };
         const [rankingRes, avaliacaoRes] = await Promise.all([
-          axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/ranking/`, { headers }),
-          axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/`, { headers })
+          axios.get(`${API_URL}/api/avaliacoes/${id}/ranking/`, { headers }),
+          axios.get(`${API_URL}/api/avaliacoes/${id}/`, { headers })
         ]);
         setRanking(rankingRes.data || []);
         setAvaliacao(avaliacaoRes.data);

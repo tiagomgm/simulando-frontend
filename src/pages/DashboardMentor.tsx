@@ -14,12 +14,13 @@ export default function DashboardMentor() {
   const [rankingGeral, setRankingGeral] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
       try {
-        const resp = await axios.get("http://127.0.0.1:8000/api/dashboard-mentor/", {
+        const resp = await axios.get(`${API_URL}/api/dashboard-mentor/`, {
           headers: { Authorization: `Bearer ${getToken()}` }
         });
         setAvaliacoes(resp.data.avaliacoes || []);
@@ -42,7 +43,7 @@ export default function DashboardMentor() {
     e.stopPropagation();
     if (window.confirm("Tem certeza que deseja excluir esta avaliação?")) {
       try {
-        await axios.delete(`http://127.0.0.1:8000/api/avaliacoes/${id}/`, {
+        await axios.delete(`${API_URL}/api/avaliacoes/${id}/`, {
           headers: { Authorization: `Bearer ${getToken()}` }
         });
         setAvaliacoes(avaliacoes.filter(av => av.id !== id));

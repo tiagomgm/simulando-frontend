@@ -24,8 +24,6 @@ const scrollbarStyles = `
   }
 `;
 
-// Helpers
-const API_URL = 'http://localhost:8000';
 
 function getMeuId() {
   try {
@@ -66,6 +64,7 @@ export default function ResultadoAvaliacao() {
   const [resultado, setResultado] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchResultado = async () => {

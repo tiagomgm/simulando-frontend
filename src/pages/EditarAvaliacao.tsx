@@ -122,19 +122,20 @@ export default function EditarAvaliacao() {
   const [searchTerm, setSearchTerm] = useState("");
   const [alteracoes, setAlteracoes] = useState<{id: number, updates: any}[]>([]);
   const [showToast, setShowToast] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     async function load() {
       setLoading(true);
       try {
         const [ava, qs, bl] = await Promise.all([
-          axios.get(`http://127.0.0.1:8000/api/avaliacoes/${id}/`, {
+          axios.get(`${API_URL}/api/avaliacoes/${id}/`, {
             headers: { Authorization: `Bearer ${getToken()}` },
           }),
-          axios.get(`http://127.0.0.1:8000/api/questoes/?avaliacao=${id}`, {
+          axios.get(`${API_URL}/api/questoes/?avaliacao=${id}`, {
             headers: { Authorization: `Bearer ${getToken()}` },
           }),
-          axios.get(`http://127.0.0.1:8000/api/gruposvalor/?avaliacao=${id}`, {
+          axios.get(`${API_URL}/api/gruposvalor/?avaliacao=${id}`, {
             headers: { Authorization: `Bearer ${getToken()}` },
           }),
         ]);
@@ -187,7 +188,7 @@ export default function EditarAvaliacao() {
   //   setSaving(true);
   //   try {
   //     await axios.delete(
-  //       `http://127.0.0.1:8000/api/questoes/${qid}/`,
+  //       `${API_URL}/api/questoes/${qid}/`,
   //       { headers: { Authorization: `Bearer ${getToken()}` } }
   //     );
   //     setQuestoes(questoes.filter(q => q.id !== qid));
@@ -212,7 +213,7 @@ export default function EditarAvaliacao() {
       await Promise.all(
         alteracoes.map(({ id, updates }) =>
           axios.patch(
-            `http://127.0.0.1:8000/api/questoes/${id}/`,
+            `${API_URL}/api/questoes/${id}/`,
             updates,
             { headers: { Authorization: `Bearer ${getToken()}` } }
           )
@@ -221,7 +222,7 @@ export default function EditarAvaliacao() {
 
       // Atualiza
       const [qs] = await Promise.all([
-        axios.get(`http://127.0.0.1:8000/api/questoes/?avaliacao=${id}`, {
+        axios.get(`${API_URL}/api/questoes/?avaliacao=${id}`, {
           headers: { Authorization: `Bearer ${getToken()}` }
         })
       ]);

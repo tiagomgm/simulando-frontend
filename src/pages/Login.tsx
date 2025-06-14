@@ -27,6 +27,7 @@ export default function Login() {
       [name]: type === "checkbox" ? checked : value
     }));
   };
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // Envio para endpoint de login
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,7 +36,7 @@ export default function Login() {
     setLoading(true);
     try {
       const resp = await axios.post(
-        "http://127.0.0.1:8000/api/token/",
+        `${API_URL}/api/token/`,
         { email: form.email, password: form.password }
       );
       sessionStorage.setItem("access", resp.data.access);
