@@ -58,7 +58,7 @@ function HomeRedirect() {
 function AppContent() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
-  const isCadastroPage = location.pathname === '/cadastro-usuario';
+  const isCadastroPage = location.pathname === '/register';
 
   return (
     <>
@@ -66,7 +66,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<HomeRedirect />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/cadastro-usuario" element={<RegisterUser />} />
+        <Route path="/register" element={<RegisterUser />} />
 
         {/* Rotas do mentor */}
         <Route path="/mentor/dashboard" element={

@@ -169,7 +169,7 @@ export default function Login() {
               </button>
               <p className="text-center text-sm text-gray-600">
                 Não tem uma conta?{" "}
-                <Link to="/cadastro-usuario" className="text-primary hover:text-blue-700 font-medium">
+                <Link to="/register" className="text-primary hover:text-blue-700 font-medium">
                   Registre-se
                 </Link>
               </p>
